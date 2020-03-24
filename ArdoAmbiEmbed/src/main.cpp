@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+int speed = 500;
+
 void setup() {
   // put your setup code here, to run once:
 
@@ -16,13 +18,16 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
+  long tick = millis() / speed;
+  int led = tick % 2;
+  digitalWrite(LED_BUILTIN, led);
 
-  if (Serial.available()) {
-    Serial.read();
+  if (Serial.available() > 0) {
+    speed = Serial.read() * 10;
+
+    // Save values
+    if (speed < 1) speed = 1;
+    if (speed > 1000) speed = 1000;
   }
 
 }
