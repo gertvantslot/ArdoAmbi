@@ -12,13 +12,12 @@ void setup() {
   Serial.println("Initializing");
 
   pinMode(LED_BUILTIN, OUTPUT);
-
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  long tick = millis() / speed;
+  unsigned long tick = millis() / speed;
   int led = tick % 2;
   digitalWrite(LED_BUILTIN, led);
 
